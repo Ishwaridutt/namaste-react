@@ -1,0 +1,17 @@
+{
+  "name": "ep_2_igniting_our-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.10.1"
+  },
+  "Browserlist": [
+    "last 2 version"
+  ]
+}
