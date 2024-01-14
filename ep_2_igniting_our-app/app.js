@@ -1,4 +1,4 @@
-// Chapter 05 - lets get hooked
+// Chapter 06 - exploring the world
 
 
 import React from 'react';
