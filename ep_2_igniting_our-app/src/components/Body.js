@@ -2,6 +2,7 @@ import RestaurantCard from "./RestaurantCard";
 import resMockData from '../utils/data.json'
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
 
 
 
@@ -23,7 +24,7 @@ const fetchData = async () => {
             const restaurantData = resMockData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
             console.log(restaurantData);
             return resolve(restaurantData);
-        }, 2000)
+        }, 1000)
     })
 }
 
@@ -40,6 +41,13 @@ const Body = () => {
         // else directly updating the variable does not do anything
     // when to use usestate ?
         // - when you want to change anything in the UI, you use usestate
+    // never use useState outside of your component,it will throw error 
+    // bcz it is used to create local state variables inside your functional components
+    // declare useState at the top of your component
+    // never declare useState inside if else, for statements
+
+    // if it re initiliza const variable with new value, how does it keep track of that line
+    // not initialize itself as a new state bcz at that we are also setting the default value na
 
     // let searchText = ''  // with variable it is not working
     const [searchText, setSearchText] = useState([]);
@@ -90,7 +98,13 @@ const Body = () => {
             </div>
             <div className='res-container' >
                     {
-                        filteredListOfRestaurant.map( restaurant => <RestaurantCard key = {restaurant.info.id} resData = {restaurant} />)
+                        filteredListOfRestaurant.map( restaurant => 
+                            // Key given to the parent element
+                            <Link key = {restaurant.info.id} to={'/restaurant/' + restaurant.info.id} >
+                                <RestaurantCard  resData = {restaurant} />
+                            </Link>
+                        
+                        )
                     }
             </div>
         </div>
