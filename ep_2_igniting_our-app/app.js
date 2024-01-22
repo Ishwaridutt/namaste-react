@@ -1,4 +1,4 @@
-// Chapter 07 - finding the path
+// Chapter 08 - lets get classy
 
 
 import React from 'react';
