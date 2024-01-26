@@ -1,7 +1,7 @@
-// Chapter 08 - lets get classy
+// Chapter 09 - optimizing our app
 
 
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom'
 import Header from './src/components/Header';
 import Body from './src/components/Body';
@@ -9,6 +9,7 @@ import About from './src/components/About';
 import Contact from './src/components/Contact';
 import Error from './src/components/Error';
 import RestaurantMenu from './src/components/RestaurantMenu';
+// import Grocery from './src/components/Grocery'; // removed because lazy loaded below
 
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 
@@ -41,8 +42,27 @@ const Title = () => {
 }
 
 
+// optimizing load time
+// so when you bundle your app, it gets compiled in 1 single index file whose size will keep on increasing
+// because it contains all of the components
+// so overcome this we will do chunking or code splitting  or lazy loading 
+// or on demand loading or dynamic imports or dymanic bundling
+// bascially split your aap into logical smaller chunks
+
+// this will split the bundling of Grocery component and whn you click on the UI
+// a differnt file will be loaded with the component data
+const Grocery = lazy(() => import('./src/components/Grocery'));
+
+// Error: A component suspended while responding to synchronous input.
+// reason: React is very fast, since you have splitted your grocery component in different bundle
+// react tries to load it immediately but it fails since that bundle is not sent by server yet.
+// so it suspends the loading of the component.
+// resolution: wrap your lazy component inside Suspense component in the router
 
 
+
+// single responsibiity principle
+// break down your code into a modular pieces, more re-usable, testable, maintainable
 
 const AppLayout = () => {
     return (
@@ -79,7 +99,13 @@ const appRouter = createBrowserRouter([
             {
                 path: '/restaurant/:resId',
                 element: <RestaurantMenu />
-            }
+            },
+            {
+                path: '/grocery',
+                element: <Suspense fallback = {<h1>Component Loading. Please wait...</h1>} >
+                    <Grocery />
+                </Suspense>
+            },
         ],
         errorElement: <Error />
     },

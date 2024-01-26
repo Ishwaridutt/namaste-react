@@ -1,41 +1,42 @@
 import { useEffect, useState } from "react";
-import { restaurantMenuMockData } from "../utils/restMenuData";
+
 import { useParams } from "react-router-dom";
 import Shimmer from "./Shimmer";
+import useRestaurantMenu from "../utils/useRestaurantMenu";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 
-const fetchMenu = async (setResinfo) => {
 
-    // due to CORS issue
-    function getData() {
-        return new Promise((resolve, reject) => {
-            setTimeout(()=> {
-                const resMenueData = restaurantMenuMockData.menu.pl.data.data.cards
-                resolve(resMenueData)
-            }, 2000)
-        })
-    }
-    
-    const resMenueData = await getData();
-    setResinfo(resMenueData)
-    console.log('resMenueData1===>', resMenueData);
-    return resMenueData;
-}
 
 
 const RestaurantMenu = () => {
     console.log('RestaurantMenu compo');
-    const [ resInfo, setResinfo ] = useState(null);
-
+    // const [ resInfo, setResinfo ] = useState(null);
+    
     // rect router dom hook 
     const {resId} = useParams();
-    console.log(resId);
+    // custom hook
+    // WHY this component get re-excuted ?
+    const resInfo = useRestaurantMenu(resId);
+    console.log('restaurant menu:', resId, resInfo);
 
-    useEffect(() => {
-        const resMenueData =  fetchMenu(setResinfo)
-        console.log('resMenueData2===>', resMenueData);
-        // setResinfo(resMenueData);
-    }, [])
+    // useEffect(() => {
+    //     const resMenueData =  fetchMenu(setResinfo)
+    //     console.log('resMenueData2===>', resMenueData);
+    //     // setResinfo(resMenueData);
+    // }, [])
+
+    const onlineStatus = useOnlineStatus()
+
+    if(!onlineStatus) {
+        return (
+            <div>
+                <h1>
+                    You are offline. Please check your Internet connection.
+                </h1>
+            </div>
+        )
+    }
 
     if(resInfo === null) return <Shimmer />
 

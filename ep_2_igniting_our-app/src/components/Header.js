@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import LOGO_URL from '../utils/constants';
 
 import { Link } from 'react-router-dom';
+import useOnlineStatus from '../utils/useOnlineStatus';
 
 
 // Header component for header section: Logo, Nav Items
@@ -31,6 +32,7 @@ const Header = () => {
             </div>
             <div className='nav-items'>
                 <ul>
+                    <li>online status {useOnlineStatus() ? '✅' : '🔴'}</li>
                     <li><Link to='/' >Home</Link></li>
                     {/* <li>About Us</li> */}
                     {/* never use anchor tag, because it refreshes the whole page */}
@@ -38,6 +40,7 @@ const Header = () => {
                     {/* link is given to us by react router dom and Behind the scene link uses anchor tag */}
                     <li><Link to='/about' >About Us</Link></li>
                     <li><Link to='/contact' >Contact Us</Link></li>
+                    <li><Link to='/grocery' >Grocery</Link></li>
 
                     <li>Cart</li>
                     <button className='btn-login' onClick={() => {
