@@ -79,12 +79,12 @@ const Body = () => {
                 }} >
                     Top Rated Restaurant
                 </button>
-                <div className='search' >
-                    <input type="text" className="search-box" value={searchText} onChange={(e) => { 
+                <div className='search m-4 p-4' >
+                    <input type="text" className="search-box border border-solid border-black" value={searchText} onChange={(e) => { 
                             // searchText = e.target.value; console.log(searchText) 
                             setSearchText(e.target.value)
                         }} />
-                    <button onClick={() => {
+                    <button className="px-4 py-1 bg-green-100 m-4 rounded-lg" onClick={() => {
                         // filter the restaurant card and update UI
                         console.log('search button clicked');
                         const filteredSearchRestaurant = listOfRestaurant.filter((res) => {
@@ -96,7 +96,7 @@ const Body = () => {
                     }} >Search</button>
                 </div>    
             </div>
-            <div className='res-container' >
+            <div className='flex flex-wrap' >
                     {
                         filteredListOfRestaurant.map( restaurant => 
                             // Key given to the parent element

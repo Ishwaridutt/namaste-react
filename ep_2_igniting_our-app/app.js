@@ -1,4 +1,4 @@
-// Chapter 09 - optimizing our app
+// Chapter 10 - jo dikhata hai, vo bikta hai
 
 
 import React, { lazy, Suspense } from 'react';
@@ -12,6 +12,10 @@ import RestaurantMenu from './src/components/RestaurantMenu';
 // import Grocery from './src/components/Grocery'; // removed because lazy loaded below
 
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
+
+
+// configure tailwind via https://tailwindcss.com/docs/installation/using-postcss
+// 
 
 
 /* 
@@ -118,6 +122,19 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<RouterProvider router = {appRouter} />);
 
 
+
+// ---integrating tailwind---
+// install according to parcel
+// tailwind config file  =>  what files we can find tailwind inside
+// postcss config file
+// import tailwind into index.css 
+// install Tailwind CSS IntelliSense => vs code extension
+
+// pros and cons of tailwind
+// you donot have to switch to multiple css files
+// reduces the redudent and duplication css and stop you from using unsed css
+// very easy to add support for dark mode
+// sometimes you have to a lot of css classes to a component which makes your code look ugly
 
 
 
