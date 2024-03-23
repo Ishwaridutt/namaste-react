@@ -1,4 +1,4 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
 import resMockData from '../utils/data.json'
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
@@ -52,6 +52,9 @@ const Body = () => {
     // let searchText = ''  // with variable it is not working
     const [searchText, setSearchText] = useState([]);
 
+    // higher order component call
+    const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
+
 
     useEffect(() => {
         async function getData() {
@@ -101,7 +104,7 @@ const Body = () => {
                         filteredListOfRestaurant.map( restaurant => 
                             // Key given to the parent element
                             <Link key = {restaurant.info.id} to={'/restaurant/' + restaurant.info.id} >
-                                <RestaurantCard  resData = {restaurant} />
+                                { restaurant.info.isPromoted ? <RestaurantCardPromoted resData = {restaurant} /> : <RestaurantCard  resData = {restaurant} /> }
                             </Link>
                         
                         )

@@ -1,4 +1,4 @@
-// Chapter 10 - jo dikhata hai, vo bikta hai
+// Chapter 11 - data is the new oil
 
 
 import React, { lazy, Suspense } from 'react';
@@ -138,7 +138,8 @@ root.render(<RouterProvider router = {appRouter} />);
 
 
 
-
+// All react app has 2 layers
+// UI layer and data layer. UI layer is powered by data layer 
 
 
 
