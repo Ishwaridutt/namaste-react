@@ -1,4 +1,4 @@
-// Chapter 11 - data is the new oil
+// Chapter 12 - lets build our store
 
 
 import React, { lazy, Suspense } from 'react';
@@ -9,9 +9,11 @@ import About from './src/components/About';
 import Contact from './src/components/Contact';
 import Error from './src/components/Error';
 import RestaurantMenu from './src/components/RestaurantMenu';
+import { Provider } from 'react-redux';
+import appStore from './src/utils/appStore';
 // import Grocery from './src/components/Grocery'; // removed because lazy loaded below
-
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
+import Cart from './src/components/Cart';
 
 
 // configure tailwind via https://tailwindcss.com/docs/installation/using-postcss
@@ -70,12 +72,15 @@ const Grocery = lazy(() => import('./src/components/Grocery'));
 
 const AppLayout = () => {
     return (
-        <div className='app' >
-            <Header />
-            {/* Outlet component => whenever there is a change in path, 
-            loads the children according to the path */}
-            <Outlet />
-        </div>
+        // pass redux store to react using provider
+        <Provider store={appStore} >
+            <div className='app' >
+                <Header />
+                {/* Outlet component => whenever there is a change in path, 
+                loads the children according to the path */}
+                <Outlet />
+            </div>
+        </Provider>
     )
 }
 
@@ -110,6 +115,10 @@ const appRouter = createBrowserRouter([
                     <Grocery />
                 </Suspense>
             },
+            {
+                path: '/cart',
+                element: <Cart />
+            },
         ],
         errorElement: <Error />
     },
@@ -143,5 +152,7 @@ root.render(<RouterProvider router = {appRouter} />);
 
 
 
+// Redux toolkit
+// install react toolkit and react-redux
 
 

@@ -3,6 +3,7 @@ import LOGO_URL from '../utils/constants';
 
 import { Link } from 'react-router-dom';
 import useOnlineStatus from '../utils/useOnlineStatus';
+import { useSelector } from 'react-redux';
 
 
 // Header component for header section: Logo, Nav Items
@@ -10,6 +11,12 @@ const Header = () => {
 
     const [btnNameReact, setBtnNameReact] = useState('Login');
     console.log('Header render', btnNameReact);
+
+    // selector hook => subscribing ot the store using selector
+    // store.cart.items => identify the portion of the store you want
+    const cartItems = useSelector((store) => store.cart.items);
+    // MISTAKE: do not subscribe to the changes in the whole store
+    // const cartItems = useSelector((store) => store);
 
     // useEffet takes 2 argument => callback fun, dependency array
     // when this useEffect is called ?
@@ -47,8 +54,7 @@ const Header = () => {
                     <li className='px-4' ><Link to='/about' >About Us</Link></li>
                     <li className='px-4' ><Link to='/contact' >Contact Us</Link></li>
                     <li className='px-4' ><Link to='/grocery' >Grocery</Link></li>
-
-                    <li className='px-4' >Cart</li>
+                    <li className='px-4' ><Link to='/cart' >Cart ({cartItems.length} items)</Link></li>
                     <button className='btn-login' onClick={() => {
                         btnNameReact === 'Login' ? setBtnNameReact('Logout') : setBtnNameReact('Login')
                     }} >

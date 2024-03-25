@@ -1,8 +1,20 @@
+import { useDispatch } from "react-redux";
 import { CDN_URL } from "../utils/constants";
+import { addItem } from "../utils/cartSlice";
+
+
+
 
 
 export const ItemList = ({ item }) => {
     console.log('Itemlsit===>', item);
+    // why i could not initiate it inside the handleAddItem function ?
+    const dispatch = useDispatch();
+    const handleAddItem = (item) => {
+        // dispatch an action
+        dispatch(addItem(item))
+    }
+
     return (
         <div>
             {
@@ -16,7 +28,16 @@ export const ItemList = ({ item }) => {
                             <p className="test-xs" >Item description</p>    
                         </div>
                         <div className="w-3/12 p-4">
-                            <img src= {CDN_URL + item.card.info.imageId} className="w-14 h-auto" />    
+                            <div className="absolute">
+                                <button
+                                className="p-2 mx-16 rounded-lg bg-black text-white shadow-lg"
+                                // know the difference
+                                // onClick={handleAddItem}
+                                // onClick={handleAddItem(item)}
+                                onClick={() => handleAddItem(item)}
+                                >Add +</button>
+                            </div>
+                            <img src= {CDN_URL + item.card.info.imageId} className="w-full" />    
                         </div>
                     </div>
                 ))
